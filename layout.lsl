@@ -183,7 +183,7 @@
           <Setting id="1303" type="bool">True</Setting>
           <Setting id="1311" type="bool">True</Setting>
           <Setting id="1312" type="bool">True</Setting>
-          <Setting id="1401" type="bool">False</Setting>
+          <Setting id="1401" type="bool">True</Setting>
           <Setting id="1402" type="bool">True</Setting>
           <Setting id="1403" type="bool">True</Setting>
           <Setting id="1411" type="bool">True</Setting>
