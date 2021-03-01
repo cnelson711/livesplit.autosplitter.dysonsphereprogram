@@ -19,13 +19,13 @@ state("DSPGAME")
     /*
     251 TechStates in array, but only 168 techs/upgrades as of 2021-02-27, followed by bunches of 0s
 
-    Can use the following memory signature to search for the array:
+    Can use the following memory signature to search for the TechState array:
     FB00000000000000
     01000000000000000000000000000000010000000000000001000000000000000000000000000000
     0?000000000000000000000000000000????000000000000B0040000000000000000000000000000
     0?000000000000000000000000000000????00000000000008070000000000000000000000000000
 
-    We skip the 8 byte length field and first 40 byte entry with the last offset 0x48 (should be 0x18)
+    We skip the 8 byte length field and first 40 byte entry with the last offset of 0x48
 
     struct TechState               // 40 bytes
     {
@@ -43,6 +43,9 @@ state("DSPGAME")
 
 startup
 {
+    // Technology/Upgrades
+    /////////////////////////////////////
+
     // techId, name, T (technology) or U (upgrade), max hash, default settings (t/f)
     // could do a sanity check to make sure the "hashNeeded" field in techStates matches 
     // this list
@@ -226,13 +229,44 @@ startup
     foreach (var p in techNames)
     {
         string[] tech = p.Value.Split(',');
-        settings.Add(p.Key.ToString(), tech[3] == "t", tech[0].Trim(), tech[1]);
+        settings.Add("t" + p.Key, tech[3] == "t", tech[0].Trim(), tech[1]);
+    }
+
+    // Production
+    /////////////////////////////////////
+
+    var itemNames = new Dictionary<int, string>()
+    {
+        { 1001, "Iron Ore,f" },
+        { 1002, "Copper Ore,f" },
+        { 1005, "Stone Ore,f" },
+        { 1101, "Iron ingot,f" },
+        { 1104, "Copper Ingot,f" },
+        { 1108, "Stone brick,f" },
+        { 1201, "Gear,f" },
+        { 1102, "Magnet,f" },
+        { 1202, "Magnetic Coil,f" },
+        { 1301, "Circuit board,f" },
+        { 2201, "Tesla tower,f" },
+        { 2203, "Wind turbine,f" },
+        { 2301, "Mining machine,f" },
+    };
+
+    int[] iids = new int[itemNames.Keys.Count];
+    itemNames.Keys.CopyTo(iids, 0);
+    vars.itemIds = new List<int>(iids);
+
+    settings.Add("P", true, "Split on First Automatic Production of an Item");
+    foreach (var p in itemNames)
+    {
+        string[] item = p.Value.Split(',');
+        settings.Add("i" + p.Key, item[1] == "t", item[0], "P");
     }
 }
 
 start
 {
-    return current.running && !current.isMenuDemo && current.timei > 0;
+    return current.running && !current.isMenuDemo && current.timei > 0 && old.timei == 0;
 }
 
 reset
@@ -260,8 +294,8 @@ split
 
     if (current.currentTech != old.currentTech && 
         old.currentTech != 0 &&
-        settings.ContainsKey(old.currentTech.ToString()) && 
-        settings[old.currentTech.ToString()] && 
+        settings.ContainsKey("t" + old.currentTech) && 
+        settings["t" + old.currentTech] &&                                   // user has setting enabled
         vars.techIds.Contains(old.currentTech) &&
         old.techStates[vars.techIds.IndexOf(old.currentTech) * 40] == 0 &&   // was locked
         current.techStates[vars.techIds.IndexOf(old.currentTech) * 40] == 1  // is now unlocked
@@ -269,4 +303,41 @@ split
     {
         return true;
     }
-}
+
+    //
+    // Check Production
+    //
+    //////////////////////////////////////////////
+    
+    // DspGame.GameMain.GameData.GameStatData.ProductionStatistics.FactoryProductPool[0-? num planets].productPool[0-? num items].itemId
+    // DspGame.GameMain.GameData.GameStatData.ProductionStatistics.FactoryProductPool[0-? num planets].productPool[0-? num items].total[6]
+    // notice: the productPools are not sorted, which makes this a difficult task
+
+    current.productionTotals = new Dictionary<int, int>();
+    int factoryIndex = 0; // just look at planet/factory 0 to save resources
+    IntPtr productPoolArrayAddr = new DeepPointer("mono.dll", 0x0026AC30, 0x38, 0x118, 0x30, 0x18, 0x18, 0x08 * factoryIndex + 0x20, 0x10).Deref<IntPtr>(game); 
+    if (productPoolArrayAddr != IntPtr.Zero)
+    {
+        int numProducts = (int) memory.ReadValue<long>(productPoolArrayAddr + 0x18);
+        for (int i=0; i<numProducts; i++) 
+        {
+            IntPtr productStatAddr = memory.ReadValue<IntPtr>(productPoolArrayAddr + 0x08 * i + 0x20);
+            int itemId = memory.ReadValue<int>(productStatAddr + 0x28);
+            if (itemId != 0 && vars.itemIds.Contains(itemId)) 
+            {
+                IntPtr totalsArrayAddr = memory.ReadValue<IntPtr>(productStatAddr + 0x20);
+                int totalProduced = memory.ReadValue<int>(totalsArrayAddr + 0x38);
+                current.productionTotals.Add(itemId, totalProduced);
+
+                if (totalProduced > 0 && // <-- this is always true  
+                    !old.productionTotals.ContainsKey(itemId) && 
+                    settings.ContainsKey("i" + itemId) &&
+                    settings["i" + itemId] 
+                   ) 
+                {
+                    return true;
+                }
+            }
+        }
+    }
+} 
