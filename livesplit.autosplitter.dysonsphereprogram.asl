@@ -47,8 +47,7 @@ startup
     /////////////////////////////////////
 
     // techId, name, T (technology) or U (upgrade), max hash, default settings (t/f)
-    // could do a sanity check to make sure the "hashNeeded" field in techStates matches 
-    // this list
+    // could do a sanity check to make sure the "hashNeeded" field in techStates matches this list
     var techNames = new Dictionary<int, string>()
     {
         { 1001, "Electromagnetism                        ,T,1200,t" },
@@ -217,7 +216,7 @@ startup
         { 261 , "Universe Exploration 1                  ,U,1800,t" },
         { 262 , "Universe Exploration 2                  ,U,36000,f" },
         { 263 , "Universe Exploration 3                  ,U,300000,f" },
-        { 264 , "Universe Exploration 4                  ,U,1200000,f" },
+        { 264 , "Universe Exploration 4                  ,U,1200000,f" }
     };
 
     int[] ids = new int[techNames.Keys.Count];
@@ -235,38 +234,179 @@ startup
     // Production
     /////////////////////////////////////
 
-    var itemNames = new Dictionary<int, string>()
+    // itemId, description, split on total built, rate/sec split targets 1/2/3/4, default settings (t/f)
+    vars.items = new Dictionary<int, dynamic>()
     {
-        { 1001, "Iron Ore,f" },
-        { 1002, "Copper Ore,f" },
-        { 1005, "Stone Ore,f" },
-        { 1101, "Iron ingot,f" },
-        { 1104, "Copper Ingot,f" },
-        { 1108, "Stone brick,f" },
-        { 1201, "Gear,f" },
-        { 1102, "Magnet,f" },
-        { 1202, "Magnetic Coil,f" },
-        { 1301, "Circuit board,f" },
-        { 2201, "Tesla tower,f" },
-        { 2203, "Wind turbine,f" },
-        { 2301, "Mining machine,f" },
+        { 1001, new { desc = "Iron Ore"                      , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 1002, new { desc = "Copper Ore"                    , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 1003, new { desc = "Silicon Ore"                   , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1004, new { desc = "Titanium Ore"                  , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1005, new { desc = "Stone Ore"                     , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 1006, new { desc = "Coal"                          , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 1030, new { desc = "Log"                           , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 1031, new { desc = "Plant fuel"                    , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 1011, new { desc = "Fire ice"                      , total = 0, rate0 = 18, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1012, new { desc = "Kimberlite ore"                , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 1013, new { desc = "Fractal silicon"               , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 1014, new { desc = "Optical grating crystal"       , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 1015, new { desc = "Spiniform stalagmite crystal"  , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 1016, new { desc = "Unipolar magnet"               , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 1101, new { desc = "Iron ingot"                    , total = 0, rate0 =  6, rate1 = 30, rate2 =  0, rate3 =  0, d = true } },
+        { 1104, new { desc = "Copper Ingot"                  , total = 0, rate0 =  6, rate1 = 54, rate2 =  0, rate3 =  0, d = true } },
+        { 1105, new { desc = "High-purity Silicon"           , total = 0, rate0 = 60, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1106, new { desc = "Titanium Ingot"                , total = 0, rate0 =  6, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1108, new { desc = "Stone brick"                   , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1109, new { desc = "Energetic Graphite"            , total = 0, rate0 = 12, rate1 = 18, rate2 = 24, rate3 = 36, d = true } },
+        { 1103, new { desc = "Steel"                         , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1107, new { desc = "Titanium alloy"                , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1110, new { desc = "Glass"                         , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1119, new { desc = "Titanium glass"                , total = 0, rate0 = 12, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1111, new { desc = "Prism"                         , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1112, new { desc = "Diamond"                       , total = 0, rate0 =  6, rate1 = 18, rate2 =  0, rate3 =  0, d = true } },
+        { 1113, new { desc = "Crystal silicon"               , total = 1, rate0 = 12, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1201, new { desc = "Gear"                          , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 1102, new { desc = "Magnet"                        , total = 0, rate0 =  6, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1202, new { desc = "Magnetic Coil"                 , total = 0, rate0 =  6, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1203, new { desc = "Electric motor"                , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1204, new { desc = "Electromechanic turbine"       , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1205, new { desc = "Super-magnetic ring"           , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1206, new { desc = "Particle container"            , total = 1, rate0 =  6, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1127, new { desc = "Strange matter"                , total = 0, rate0 =  3, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1301, new { desc = "Circuit board"                 , total = 0, rate0 =  6, rate1 = 30, rate2 =  0, rate3 =  0, d = true } },
+        { 1303, new { desc = "Processor"                     , total = 1, rate0 = 12, rate1 = 18, rate2 =  0, rate3 =  0, d = true } },
+        { 1305, new { desc = "Quantum chip"                  , total = 0, rate0 =  3, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1302, new { desc = "Microcrystalline component"    , total = 1, rate0 = 24, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1304, new { desc = "Plane filter"                  , total = 0, rate0 =  6, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1402, new { desc = "Particle broadband"            , total = 0, rate0 =  6, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1401, new { desc = "Plasma excitor"                , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1404, new { desc = "Photon combiner"               , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1501, new { desc = "Solar sail"                    , total = 0, rate0 = 36, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1000, new { desc = "Water"                         , total = 0, rate0 =  6, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1007, new { desc = "Crude oil"                     , total = 0, rate0 = 24, rate1 = 30, rate2 = 36, rate3 =  0, d = true } },
+        { 1114, new { desc = "Refined oil"                   , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 1116, new { desc = "Sulfuric acid"                 , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1120, new { desc = "Hydrogen"                      , total = 0, rate0 = 12, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1121, new { desc = "Deuterium"                     , total = 1, rate0 = 30, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1122, new { desc = "Antimatter"                    , total = 0, rate0 =  6, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1208, new { desc = "Critical photon"               , total = 0, rate0 =  6, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1801, new { desc = "Hydrogen fuel rod"             , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 1802, new { desc = "Deuteron fuel rod"             , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 1803, new { desc = "Antimatter fuel rod"           , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 1115, new { desc = "Plastic"                       , total = 0, rate0 = 12, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1123, new { desc = "Graphene"                      , total = 0, rate0 = 18, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1124, new { desc = "Carbon nanotube"               , total = 0, rate0 = 12, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1117, new { desc = "Organic crystal"               , total = 0, rate0 =  6, rate1 = 12, rate2 =  0, rate3 =  0, d = true } },
+        { 1118, new { desc = "Titanium crystal"              , total = 0, rate0 =  6, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1126, new { desc = "Casimir crystal"               , total = 0, rate0 =  6, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1209, new { desc = "Graviton lens"                 , total = 0, rate0 =  3, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1210, new { desc = "Space warper"                  , total = 2, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1403, new { desc = "Annihilation constraint sphere", total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 1405, new { desc = "Thruster"                      , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1406, new { desc = "Reinforced thruster"           , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 5001, new { desc = "Logistics drone"               , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 5002, new { desc = "Logistics vessel"              , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1125, new { desc = "Frame material"                , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 1502, new { desc = "Dyson sphere component"        , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 1503, new { desc = "Small carrier rocket"          , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 1131, new { desc = "Foundation"                    , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 1141, new { desc = "Accelerant Mk. I"              , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 1142, new { desc = "Accelerant Mk. II"             , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 1143, new { desc = "Accelerant Mk. III"            , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 2001, new { desc = "Conveyor belt Mk. I"           , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2002, new { desc = "Conveyor belt Mk. II"          , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2003, new { desc = "Conveyor belt Mk. III"         , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2011, new { desc = "Sorter Mk. I"                  , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2012, new { desc = "Sorter Mk. II"                 , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2013, new { desc = "Sorter Mk. II"                 , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2020, new { desc = "Splitter"                      , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 2101, new { desc = "Storage Mk. I"                 , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2102, new { desc = "Storage Mk. II"                , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 2106, new { desc = "Storage tank"                  , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2303, new { desc = "Assembly machine Mk. I"        , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2304, new { desc = "Assembly machine Mk. II"       , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2305, new { desc = "Assembly machine Mk. III"      , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2201, new { desc = "Tesla tower"                   , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2202, new { desc = "Wireless power tower"          , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2212, new { desc = "Satellite substation"          , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 2203, new { desc = "Wind turbine"                  , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2204, new { desc = "Thermal power station"         , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2211, new { desc = "Mini fusion power station"     , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 2301, new { desc = "Mining machine"                , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2302, new { desc = "Smelter"                       , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2307, new { desc = "Oil extractor"                 , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2308, new { desc = "Oil refinery"                  , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2306, new { desc = "Water pump"                    , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2309, new { desc = "Chemical plant"                , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2314, new { desc = "Fractionator"                  , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2313, new { desc = "Spray coater"                  , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 2205, new { desc = "Solar panel"                   , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2206, new { desc = "Accumulator"                   , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2207, new { desc = "Accumulator (full)"            , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 2311, new { desc = "EM-Rail Ejector"               , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2208, new { desc = "Ray receiver"                  , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2312, new { desc = "Vertical launching silo"       , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 2209, new { desc = "Energy exchanger"              , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2310, new { desc = "Miniature particle collider"   , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2210, new { desc = "Artificial star"               , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = false } },
+        { 2103, new { desc = "Planetary logistics station"   , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2104, new { desc = "Interstellar logistics station", total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2105, new { desc = "Orbital collector"             , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 2901, new { desc = "Matrix lab"                    , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 6001, new { desc = "Electromagnetic matrix (blue)" , total = 0, rate0 =  6, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 6002, new { desc = "Energy matrix (red)"           , total = 0, rate0 =  6, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 6003, new { desc = "Structure matrix (yellow)"     , total = 0, rate0 =  6, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 6004, new { desc = "Information matrix (purple)"   , total = 0, rate0 =  6, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 6005, new { desc = "Gravity matrix (green)"        , total = 0, rate0 =  6, rate1 =  0, rate2 =  0, rate3 =  0, d = true } },
+        { 6006, new { desc = "Universe matrix (white)"       , total = 0, rate0 =  6, rate1 =  0, rate2 =  0, rate3 =  0, d = true } }
     };
 
-    int[] iids = new int[itemNames.Keys.Count];
-    itemNames.Keys.CopyTo(iids, 0);
-    vars.itemIds = new List<int>(iids);
-
-    settings.Add("P", true, "Split on First Automatic Production of an Item");
-    foreach (var p in itemNames)
+    settings.Add("P", true, "Split on First X Production of an Item");
+    settings.Add("R", true, "Split on Item Production Rate (in progress)");
+    // since C# doesn't like my dynamics in other actions
+    vars.itemTotalGoals = new Dictionary<int, int>();
+    vars.itemRate0Goals = new Dictionary<int, int>();
+    vars.itemRate1Goals = new Dictionary<int, int>();
+    vars.itemRate2Goals = new Dictionary<int, int>();
+    vars.itemRate3Goals = new Dictionary<int, int>();
+    vars.itemNextRateGoal = new Dictionary<int, int>(vars.itemRate0Goals);
+    foreach (var p in vars.items)
     {
-        string[] item = p.Value.Split(',');
-        settings.Add("i" + p.Key, item[1] == "t", item[0], "P");
+        var item = p.Value as dynamic;
+        settings.Add("i" + p.Key, item.d, item.desc, "P");
+
+        vars.itemTotalGoals.Add(p.Key, item.total);
+
+        if (item.rate0 != 0)
+        {
+            settings.Add("r0" + p.Key, true, item.rate0 + "/s - " + item.desc, "R"); 
+            vars.itemRate0Goals.Add(p.Key, item.rate0);
+        }
+        if (item.rate1 != 0)
+        {
+            settings.Add("r1" + p.Key, true, item.rate1 + "/s - " + item.desc, "R");
+            vars.itemRate1Goals.Add(p.Key, item.rate1);
+        }
+        if (item.rate2 != 0)
+        {
+            settings.Add("r2" + p.Key, true, item.rate2 + "/s - " + item.desc, "R");
+            vars.itemRate2Goals.Add(p.Key, item.rate2);
+        }
+        if (item.rate3 != 0)
+        {
+            settings.Add("r3" + p.Key, true, item.rate3 + "/s - " + item.desc, "R");
+            vars.itemRate3Goals.Add(p.Key, item.rate3);
+        }
     }
 }
 
 start
 {
-    return current.running && !current.isMenuDemo && current.timei > 0 && old.timei == 0;
+    if (current.running && !current.isMenuDemo && current.timei > 0 )
+    {
+        vars.itemNextRateGoal = new Dictionary<int, int>(vars.itemRate0Goals);
+
+        return true;
+    }
 }
 
 reset
@@ -319,23 +459,91 @@ split
     if (productPoolArrayAddr != IntPtr.Zero)
     {
         int numProducts = (int) memory.ReadValue<long>(productPoolArrayAddr + 0x18);
+
         for (int i=0; i<numProducts; i++) 
         {
             IntPtr productStatAddr = memory.ReadValue<IntPtr>(productPoolArrayAddr + 0x08 * i + 0x20);
-            int itemId = memory.ReadValue<int>(productStatAddr + 0x28);
-            if (itemId != 0 && vars.itemIds.Contains(itemId)) 
+            if (productStatAddr == IntPtr.Zero && i>1)
             {
+                break;
+            } 
+            int itemId = memory.ReadValue<int>(productStatAddr + 0x28);
+            if (itemId == 0 && i>1) 
+            { 
+                break;
+            }
+
+            if (itemId != 0 && vars.items.ContainsKey(itemId)) 
+            {
+                // Total produced
+                //////////////////////////////
                 IntPtr totalsArrayAddr = memory.ReadValue<IntPtr>(productStatAddr + 0x20);
                 int totalProduced = memory.ReadValue<int>(totalsArrayAddr + 0x38);
                 current.productionTotals.Add(itemId, totalProduced);
+                int totalProducedTarget = vars.itemTotalGoals[itemId];
+                if (totalProducedTarget == 0)
+                {
+                    totalProducedTarget = 1;
+                }
 
-                if (totalProduced > 0 && // <-- this is always true  
-                    !old.productionTotals.ContainsKey(itemId) && 
+                if (totalProduced >= totalProducedTarget && 
+                    (!old.productionTotals.ContainsKey(itemId) || old.productionTotals[itemId] < totalProducedTarget) && 
                     settings.ContainsKey("i" + itemId) &&
                     settings["i" + itemId] 
                    ) 
                 {
                     return true;
+                }
+
+                // Rates
+                //////////////////////////////
+                if (!vars.itemNextRateGoal.ContainsKey(itemId))
+                {
+                    continue;
+                }
+
+                int rateProduced = 0; // TODO
+                int rateTarget = vars.itemNextRateGoal[itemId];
+
+                if (rateProduced >= rateTarget)
+                {
+                    // set next rate goal
+                    int nextRate = 0;
+                    string keystring = "r0";
+                    if (rateTarget == vars.itemRate0Goals[itemId])
+                    {
+                        nextRate = vars.itemRate1Goals[itemId];
+                        keystring = "r0";                        
+                    }
+                    else if (rateTarget == vars.itemRate1Goals[itemId])
+                    {
+                        nextRate = vars.itemRate2Goals[itemId];
+                        keystring = "r1"; 
+                    }
+                    else if (rateTarget == vars.itemRate2Goals[itemId])
+                    {
+                        nextRate = vars.itemRate3Goals[itemId];
+                        keystring = "r2";
+                    }
+                    else if (rateTarget == vars.itemRate3Goals[itemId])
+                    {
+                        nextRate = 0;
+                        keystring = "r3";
+                    }
+
+                    if (nextRate > 0) 
+                    {
+                        vars.itemNextRateGoal[itemId] = nextRate;
+                    }
+                    else
+                    {
+                        vars.itemNextRateGoal.Remove(itemId);
+                    }
+
+                    if (settings[keystring + itemId])
+                    {
+                        return true;
+                    }
                 }
             }
         }
