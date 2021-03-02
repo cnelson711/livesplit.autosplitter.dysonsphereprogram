@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <Layout version="1.6.1">
   <Mode>Vertical</Mode>
   <X>2193</X>
-  <Y>1</Y>
+  <Y>0</Y>
   <VerticalWidth>367</VerticalWidth>
   <VerticalHeight>367</VerticalHeight>
   <HorizontalWidth>-1</HorizontalWidth>
@@ -148,7 +148,7 @@
       <Path>LiveSplit.ScriptableAutoSplit.dll</Path>
       <Settings>
         <Version>1.5</Version>
-        <ScriptPath>C:\Users\cnels\Documents\livesplit.autosplitter.dysonsphereprogram.asl</ScriptPath>
+        <ScriptPath>C:\Users\cnels\Documents\ls\livesplit.autosplitter.dysonsphereprogram.asl</ScriptPath>
         <Start>True</Start>
         <Reset>True</Reset>
         <Split>True</Split>
@@ -332,25 +332,25 @@
           <Setting id="i1006" type="bool">False</Setting>
           <Setting id="i1030" type="bool">False</Setting>
           <Setting id="i1031" type="bool">False</Setting>
-          <Setting id="i1011" type="bool">True</Setting>
+          <Setting id="i1011" type="bool">False</Setting>
           <Setting id="r01011" type="bool">True</Setting>
           <Setting id="i1012" type="bool">False</Setting>
           <Setting id="i1013" type="bool">False</Setting>
           <Setting id="i1014" type="bool">False</Setting>
           <Setting id="i1015" type="bool">False</Setting>
           <Setting id="i1016" type="bool">False</Setting>
-          <Setting id="i1101" type="bool">True</Setting>
+          <Setting id="i1101" type="bool">False</Setting>
           <Setting id="r01101" type="bool">True</Setting>
           <Setting id="r11101" type="bool">True</Setting>
-          <Setting id="i1104" type="bool">True</Setting>
+          <Setting id="i1104" type="bool">False</Setting>
           <Setting id="r01104" type="bool">True</Setting>
           <Setting id="r11104" type="bool">True</Setting>
-          <Setting id="i1105" type="bool">True</Setting>
+          <Setting id="i1105" type="bool">False</Setting>
           <Setting id="r01105" type="bool">True</Setting>
-          <Setting id="i1106" type="bool">True</Setting>
+          <Setting id="i1106" type="bool">False</Setting>
           <Setting id="r01106" type="bool">True</Setting>
           <Setting id="i1108" type="bool">True</Setting>
-          <Setting id="i1109" type="bool">True</Setting>
+          <Setting id="i1109" type="bool">False</Setting>
           <Setting id="r01109" type="bool">True</Setting>
           <Setting id="r11109" type="bool">True</Setting>
           <Setting id="r21109" type="bool">True</Setting>
@@ -358,77 +358,77 @@
           <Setting id="i1103" type="bool">True</Setting>
           <Setting id="i1107" type="bool">True</Setting>
           <Setting id="i1110" type="bool">True</Setting>
-          <Setting id="i1119" type="bool">True</Setting>
+          <Setting id="i1119" type="bool">False</Setting>
           <Setting id="r01119" type="bool">True</Setting>
           <Setting id="i1111" type="bool">True</Setting>
-          <Setting id="i1112" type="bool">True</Setting>
+          <Setting id="i1112" type="bool">False</Setting>
           <Setting id="r01112" type="bool">True</Setting>
           <Setting id="r11112" type="bool">True</Setting>
           <Setting id="i1113" type="bool">True</Setting>
           <Setting id="r01113" type="bool">True</Setting>
           <Setting id="i1201" type="bool">False</Setting>
-          <Setting id="i1102" type="bool">True</Setting>
+          <Setting id="i1102" type="bool">False</Setting>
           <Setting id="r01102" type="bool">True</Setting>
-          <Setting id="i1202" type="bool">True</Setting>
+          <Setting id="i1202" type="bool">False</Setting>
           <Setting id="r01202" type="bool">True</Setting>
           <Setting id="i1203" type="bool">True</Setting>
           <Setting id="i1204" type="bool">True</Setting>
           <Setting id="i1205" type="bool">True</Setting>
           <Setting id="i1206" type="bool">True</Setting>
           <Setting id="r01206" type="bool">True</Setting>
-          <Setting id="i1127" type="bool">True</Setting>
+          <Setting id="i1127" type="bool">False</Setting>
           <Setting id="r01127" type="bool">True</Setting>
-          <Setting id="i1301" type="bool">True</Setting>
+          <Setting id="i1301" type="bool">False</Setting>
           <Setting id="r01301" type="bool">True</Setting>
           <Setting id="r11301" type="bool">True</Setting>
           <Setting id="i1303" type="bool">True</Setting>
           <Setting id="r01303" type="bool">True</Setting>
           <Setting id="r11303" type="bool">True</Setting>
-          <Setting id="i1305" type="bool">True</Setting>
+          <Setting id="i1305" type="bool">False</Setting>
           <Setting id="r01305" type="bool">True</Setting>
           <Setting id="i1302" type="bool">True</Setting>
           <Setting id="r01302" type="bool">True</Setting>
-          <Setting id="i1304" type="bool">True</Setting>
+          <Setting id="i1304" type="bool">False</Setting>
           <Setting id="r01304" type="bool">True</Setting>
-          <Setting id="i1402" type="bool">True</Setting>
+          <Setting id="i1402" type="bool">False</Setting>
           <Setting id="r01402" type="bool">True</Setting>
           <Setting id="i1401" type="bool">True</Setting>
           <Setting id="i1404" type="bool">True</Setting>
-          <Setting id="i1501" type="bool">True</Setting>
+          <Setting id="i1501" type="bool">False</Setting>
           <Setting id="r01501" type="bool">True</Setting>
-          <Setting id="i1000" type="bool">True</Setting>
+          <Setting id="i1000" type="bool">False</Setting>
           <Setting id="r01000" type="bool">True</Setting>
-          <Setting id="i1007" type="bool">True</Setting>
+          <Setting id="i1007" type="bool">False</Setting>
           <Setting id="r01007" type="bool">True</Setting>
           <Setting id="r11007" type="bool">True</Setting>
           <Setting id="r21007" type="bool">True</Setting>
           <Setting id="i1114" type="bool">False</Setting>
           <Setting id="i1116" type="bool">True</Setting>
-          <Setting id="i1120" type="bool">True</Setting>
+          <Setting id="i1120" type="bool">False</Setting>
           <Setting id="r01120" type="bool">True</Setting>
           <Setting id="i1121" type="bool">True</Setting>
           <Setting id="r01121" type="bool">True</Setting>
-          <Setting id="i1122" type="bool">True</Setting>
+          <Setting id="i1122" type="bool">False</Setting>
           <Setting id="r01122" type="bool">True</Setting>
-          <Setting id="i1208" type="bool">True</Setting>
+          <Setting id="i1208" type="bool">False</Setting>
           <Setting id="r01208" type="bool">True</Setting>
           <Setting id="i1801" type="bool">False</Setting>
           <Setting id="i1802" type="bool">False</Setting>
           <Setting id="i1803" type="bool">False</Setting>
-          <Setting id="i1115" type="bool">True</Setting>
+          <Setting id="i1115" type="bool">False</Setting>
           <Setting id="r01115" type="bool">True</Setting>
-          <Setting id="i1123" type="bool">True</Setting>
+          <Setting id="i1123" type="bool">False</Setting>
           <Setting id="r01123" type="bool">True</Setting>
-          <Setting id="i1124" type="bool">True</Setting>
+          <Setting id="i1124" type="bool">False</Setting>
           <Setting id="r01124" type="bool">True</Setting>
-          <Setting id="i1117" type="bool">True</Setting>
+          <Setting id="i1117" type="bool">False</Setting>
           <Setting id="r01117" type="bool">True</Setting>
           <Setting id="r11117" type="bool">True</Setting>
-          <Setting id="i1118" type="bool">True</Setting>
+          <Setting id="i1118" type="bool">False</Setting>
           <Setting id="r01118" type="bool">True</Setting>
-          <Setting id="i1126" type="bool">True</Setting>
+          <Setting id="i1126" type="bool">False</Setting>
           <Setting id="r01126" type="bool">True</Setting>
-          <Setting id="i1209" type="bool">True</Setting>
+          <Setting id="i1209" type="bool">False</Setting>
           <Setting id="r01209" type="bool">True</Setting>
           <Setting id="i1210" type="bool">True</Setting>
           <Setting id="i1403" type="bool">False</Setting>
@@ -483,17 +483,17 @@
           <Setting id="i2104" type="bool">True</Setting>
           <Setting id="i2105" type="bool">True</Setting>
           <Setting id="i2901" type="bool">True</Setting>
-          <Setting id="i6001" type="bool">True</Setting>
+          <Setting id="i6001" type="bool">False</Setting>
           <Setting id="r06001" type="bool">True</Setting>
-          <Setting id="i6002" type="bool">True</Setting>
+          <Setting id="i6002" type="bool">False</Setting>
           <Setting id="r06002" type="bool">True</Setting>
-          <Setting id="i6003" type="bool">True</Setting>
+          <Setting id="i6003" type="bool">False</Setting>
           <Setting id="r06003" type="bool">True</Setting>
-          <Setting id="i6004" type="bool">True</Setting>
+          <Setting id="i6004" type="bool">False</Setting>
           <Setting id="r06004" type="bool">True</Setting>
-          <Setting id="i6005" type="bool">True</Setting>
+          <Setting id="i6005" type="bool">False</Setting>
           <Setting id="r06005" type="bool">True</Setting>
-          <Setting id="i6006" type="bool">True</Setting>
+          <Setting id="i6006" type="bool">False</Setting>
           <Setting id="r06006" type="bool">True</Setting>
         </CustomSettings>
       </Settings>
