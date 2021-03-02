@@ -401,7 +401,7 @@ startup
 
 start
 {
-    if (current.running && !current.isMenuDemo && current.timei > 0 )
+    if (current.running && !current.isMenuDemo && current.timei > 0 && old.timei == 0)
     {
         vars.itemNextRateGoal = new Dictionary<int, int>(vars.itemRate0Goals);
 
