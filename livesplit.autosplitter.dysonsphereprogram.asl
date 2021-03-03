@@ -30,7 +30,7 @@ state("DSPGAME")
     struct TechState               // 40 bytes
     {
         public bool unlocked;      // 4 bytes
-        public int curLevel;       // 4 bytes
+        public int curLevel;       // 4 bytes 
         public int maxLevel;       // 4 bytes
                                    // 4 byte pad
         public long hashUploaded;  // 8 bytes
@@ -222,6 +222,7 @@ startup
     int[] ids = new int[techNames.Keys.Count];
     techNames.Keys.CopyTo(ids, 0);
     vars.techIds = new List<int>(ids);
+    vars.techName = new Dictionary<int, string>();
 
     settings.Add("T", true, "Split When Technologies are Researched");
     settings.Add("U", true, "Split When Upgrades are Researched");
@@ -229,13 +230,14 @@ startup
     {
         string[] tech = p.Value.Split(',');
         settings.Add("t" + p.Key, tech[3] == "t", tech[0].Trim(), tech[1]);
+        vars.techName.Add(p.Key, tech[0].Trim());
     }
 
     // Production
     /////////////////////////////////////
 
     // itemId, description, split on total built, rate/sec split targets 1/2/3/4, default settings (t/f)
-    vars.items = new Dictionary<int, dynamic>()
+    vars.items = new Dictionary<int, dynamic>() 
     {
         { 1001, new { desc = "Iron Ore"                      , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0 } },
         { 1002, new { desc = "Copper Ore"                    , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0 } },
@@ -363,16 +365,18 @@ startup
     settings.Add("P", true, "Split on First X Production of an Item");
     settings.Add("R", true, "Split on Item Production Rate (in progress)");
     // since C# doesn't like my dynamics in other actions
+    vars.itemNames = new Dictionary<int, string>();
     vars.itemTotalGoals = new Dictionary<int, int>();
     vars.itemRate0Goals = new Dictionary<int, int>();
     vars.itemRate1Goals = new Dictionary<int, int>();
     vars.itemRate2Goals = new Dictionary<int, int>();
     vars.itemRate3Goals = new Dictionary<int, int>();
-    vars.itemNextRateGoal = new Dictionary<int, int>(vars.itemRate0Goals);
+    
     foreach (var p in vars.items)
     {
         var item = p.Value as dynamic;
         settings.Add("i" + p.Key, item.total != 0, item.desc, "P");
+        vars.itemNames.Add(p.Key, item.desc);
 
         vars.itemTotalGoals.Add(p.Key, item.total);
 
@@ -397,6 +401,8 @@ startup
             vars.itemRate3Goals.Add(p.Key, item.rate3);
         }
     }
+    vars.itemNextRateGoal = new Dictionary<int, int>(vars.itemRate0Goals);
+    vars.itemTotalProducedHistory = new Dictionary<int, int>();
 }
 
 start
@@ -404,6 +410,7 @@ start
     if (current.running && !current.isMenuDemo && current.timei > 0 && old.timei == 0)
     {
         vars.itemNextRateGoal = new Dictionary<int, int>(vars.itemRate0Goals);
+        vars.itemTotalProducedHistory = new Dictionary<int, int>();
 
         return true;
     }
@@ -441,6 +448,7 @@ split
         current.techStates[vars.techIds.IndexOf(old.currentTech) * 40] == 1  // is now unlocked
         )
     {
+        print("LiveSplit: Splitting on technology: " + vars.techName[old.currentTech]);
         return true;
     }
 
@@ -449,8 +457,13 @@ split
     //
     //////////////////////////////////////////////
     
-    // DspGame.GameMain.GameData.GameStatData.ProductionStatistics.FactoryProductPool[0-? num planets].productPool[0-? num items].itemId
-    // DspGame.GameMain.GameData.GameStatData.ProductionStatistics.FactoryProductPool[0-? num planets].productPool[0-? num items].total[6]
+    // DspGame.GameMain.GameData.GameStatData.ProductionStatistics.FactoryProductPool[0-? num planets].productPool[0-? num items] is a ProductStat
+    // ProductStat.itemId
+    // ProductStat.count[]?
+    // ProductStat.cursor[]?
+    // ProductStat.total[6] is total production
+    // ProductStat.total[13] is total consumption
+    // ProductStat.
     // notice: the productPools are not sorted, which makes this a difficult task
 
     current.productionTotals = new Dictionary<int, int>();
@@ -487,22 +500,43 @@ split
                 }
 
                 if (totalProduced >= totalProducedTarget && 
+                    old.productionTotals != null &&
                     (!old.productionTotals.ContainsKey(itemId) || old.productionTotals[itemId] < totalProducedTarget) && 
                     settings.ContainsKey("i" + itemId) &&
                     settings["i" + itemId] 
                    ) 
                 {
+                    print("LiveSplit: Splitting on total produced: " + vars.itemNames[itemId]);
                     return true;
                 }
 
                 // Rates
                 //////////////////////////////
+
+                if (current.timef % 1 != 0) 
+                {
+                    // only check rates at 1 Hz
+                    continue;
+                }
+
                 if (!vars.itemNextRateGoal.ContainsKey(itemId))
                 {
                     continue;
                 }
 
-                int rateProduced = 0; // TODO
+                int lastTotalProduced = 0;
+                if (vars.itemTotalProducedHistory.ContainsKey(itemId)) 
+                {
+                    lastTotalProduced = vars.itemTotalProducedHistory[itemId];
+                    vars.itemTotalProducedHistory[itemId] = totalProduced;
+                }
+                else
+                { 
+                    vars.itemTotalProducedHistory.Add(itemId, totalProduced);
+                }
+
+
+                int rateProduced = totalProduced - lastTotalProduced; // items / sec
                 int rateTarget = vars.itemNextRateGoal[itemId];
 
                 if (rateProduced >= rateTarget)
@@ -542,6 +576,7 @@ split
 
                     if (settings[keystring + itemId])
                     {
+                        print("LiveSplit: Splitting on rate " + rateTarget + "/s: " + vars.itemNames[itemId]);
                         return true;
                     }
                 }
@@ -553,6 +588,6 @@ split
     //
     // Check Power Generation
     //
-    //////////////////////////////////////////////
+    ////////////////////////////////////////////// 
     
 } 
