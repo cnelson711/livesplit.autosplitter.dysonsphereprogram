@@ -239,7 +239,7 @@ startup
     // itemId, description, split on total built, rate/sec split targets 1/2/3/4, default settings (t/f)
     vars.items = new Dictionary<int, dynamic>() 
     {
-        { 1001, new { desc = "Iron Ore"                      , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0 } },
+        { 1001, new { desc = "Iron Ore"                      , total = 1, rate0 =  1, rate1 =  0, rate2 =  0, rate3 =  0 } },
         { 1002, new { desc = "Copper Ore"                    , total = 0, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0 } },
         { 1003, new { desc = "Silicon Ore"                   , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0 } },
         { 1004, new { desc = "Titanium Ore"                  , total = 1, rate0 =  0, rate1 =  0, rate2 =  0, rate3 =  0 } },
@@ -362,26 +362,12 @@ startup
         { 6006, new { desc = "Universe matrix (white)"       , total = 0, rate0 =  6, rate1 =  0, rate2 =  0, rate3 =  0 } }
     };
 
-    vars.powerGoals = new List<long>
-    {
-        30, 130, 260, 500, 700, 4500, 0 // in MW, ends with 0
-    };
-    vars.nextPowerGoal = vars.powerGoals[0];
-
-    settings.Add("P", true, "Split on First X Production of an Item");
-    settings.Add("R", true, "Split on Item Production Rate");
-    settings.Add("E", true, "Split on Electrical Generation (MW)");
-
-    foreach (int e in vars.powerGoals)
-    {
-        if (e == 0) break;
-        settings.Add("e" + e, true, "Generate " + e + " MW", "E");
-    }
-
-    // since C# doesn't like my dynamics in other actions
     vars.itemNames = new Dictionary<int, string>();
     vars.itemTotalGoals = new Dictionary<int, int>();
     vars.itemRateGoals = new Dictionary<int, List<int>>();
+
+    settings.Add("P", true, "Split on First X Production of an Item");
+    settings.Add("R", true, "Split on Item Production Rate");
     
     foreach (var p in vars.items)
     {
@@ -395,25 +381,45 @@ startup
             if (item.rate1 != 0) vars.itemRateGoals[p.Key].Add(item.rate1);
             if (item.rate2 != 0) vars.itemRateGoals[p.Key].Add(item.rate2);
             if (item.rate3 != 0) vars.itemRateGoals[p.Key].Add(item.rate3);
-                                 settings.Add("r0" + p.Key, true, item.rate0 + "/s - " + item.desc, "R"); 
-            if (item.rate1 != 0) settings.Add("r1" + p.Key, true, item.rate1 + "/s - " + item.desc, "R");
-            if (item.rate2 != 0) settings.Add("r2" + p.Key, true, item.rate2 + "/s - " + item.desc, "R");
-            if (item.rate3 != 0) settings.Add("r3" + p.Key, true, item.rate3 + "/s - " + item.desc, "R");
+
+            if (item.rate0 != 0) settings.Add("r0." + p.Key, p.Key != 1001, item.rate0 + "/s - " + item.desc, "R"); 
+            if (item.rate1 != 0) settings.Add("r1." + p.Key, true, item.rate1 + "/s - " + item.desc, "R");
+            if (item.rate2 != 0) settings.Add("r2." + p.Key, true, item.rate2 + "/s - " + item.desc, "R");
+            if (item.rate3 != 0) settings.Add("r3." + p.Key, true, item.rate3 + "/s - " + item.desc, "R");
         }
     }
     vars.itemNextRateGoal = new Dictionary<int, List<int>>(vars.itemRateGoals);
-    vars.ignoreItemIds = new List<int>(); // since rates can fluctuate, we need to keep track if we've been triggered
+    vars.productionTotalsSec = new Dictionary<int, int>(); // per 1 sec
+    vars.productionTotalsSecAge = new Dictionary<int, int>(); // <itemId, timef>
 
+    // Power
+    /////////////////////////////////////
+
+    vars.powerGoals = new List<long>
+    {
+        30, 130, 260, 500, 700, 4500, 0 // in MW, ends with 0
+    };
+    vars.nextPowerGoal = vars.powerGoals[0];
+
+    settings.Add("E", true, "Split on Electrical Generation (MW)");
+
+    foreach (int e in vars.powerGoals)
+    {
+        if (e == 0) break;
+        settings.Add("e" + e, true, "Generate " + e + " MW", "E");
+    }
 }
 
 start
 {
-    if (current.running && !current.isMenuDemo && current.timei > 0 && old.timei == 0) // only allow new games
-//  if (current.running && !current.isMenuDemo && current.timei > 0)                   // allow loading an old save
+    bool shouldBeStarted = current.running && !current.isMenuDemo && current.timei > 0;
+    bool wasStarted = old.running && !old.isMenuDemo && old.timei > 0;
+    if (shouldBeStarted && !wasStarted)
     {
         vars.itemNextRateGoal = new Dictionary<int, List<int>>(vars.itemRateGoals);
         vars.nextPowerGoal = vars.powerGoals[0];
-        vars.ignoreItemIds = new List<int>();
+        vars.productionTotalsSec = new Dictionary<int, int>(); // per 1 sec
+        vars.productionTotalsSecAge = new Dictionary<int, int>(); // <itemId, timef>
         return true;
     }
 }
@@ -430,7 +436,6 @@ isLoading
 
 gameTime
 {
-    // make sure you're Timer's layout is using GameTime!
     return TimeSpan.FromSeconds(current.timef);
 }
 
@@ -461,7 +466,7 @@ split
     //
     //////////////////////////////////////////////
 
-    current.productionTotals = new Dictionary<int, int>();
+    current.productionTotals = new Dictionary<int, int>(); // per frame
     long powerGenTotal = 0;
     for (int factoryIndex = 0; factoryIndex < 1; factoryIndex++) // just do the home planet for now
     {
@@ -482,7 +487,6 @@ split
             //////////////////////////////
             IntPtr totalsArrayAddr = memory.ReadValue<IntPtr>(productStatAddr + 0x20);
             int totalProduced = memory.ReadValue<int>(totalsArrayAddr + 0x38);
-            if (vars.ignoreItemIds.Contains(itemId)) continue;   
             current.productionTotals.Add(itemId, totalProduced);
             int totalProducedTarget = vars.itemTotalGoals[itemId];
             if (totalProducedTarget == 0) totalProducedTarget = 1;
@@ -490,12 +494,11 @@ split
             try 
             {
                 if (totalProduced >= totalProducedTarget && 
-                    (!old.productionTotals.ContainsKey(itemId) || old.productionTotals[itemId] < totalProducedTarget) && 
+                    old.productionTotals.ContainsKey(itemId) && old.productionTotals[itemId] < totalProducedTarget && 
                     settings.ContainsKey("i" + itemId) && settings["i" + itemId] 
                    ) 
                 {
                     print("LiveSplit: [" + current.timei + "] Splitting on total produced [" + i + "]: " + vars.itemNames[itemId]);
-                    vars.ignoreItemIds.Add(itemId); 
                     return true;
                 } 
             } 
@@ -509,31 +512,49 @@ split
             ////////////////////////////// 
 
             if (current.timef % 1 != 0) continue; // only check rates at 1 Hz
-            if (!old.productionTotals.ContainsKey(itemId)) continue;
-            if (!vars.itemNextRateGoal.ContainsKey(itemId)) continue;
-            int lastTotalProduced = old.productionTotals[itemId];
-            int rateProduced = totalProduced - lastTotalProduced; // items / sec
-            int rateTarget = vars.itemNextRateGoal[itemId][0];
-            if (rateProduced < rateTarget) continue;
-
-            // set next rate goal
-            int nextRate = 0;
-            int idx = vars.itemRateGoals[itemId].IndexOf(rateTarget);
-            string keystring = "r" + idx;
-            vars.itemNextRateGoal[itemId].RemoveAt(0);
-            if (0 == vars.itemNextRateGoal[itemId].Count) vars.itemNextRateGoal.Remove(itemId); 
-
-            if (settings[keystring + itemId])
+            if (!vars.productionTotalsSec.ContainsKey(itemId)) 
             {
-                print("LiveSplit: [" + current.timei + "] Splitting on rate " + rateTarget + "/s: " + vars.itemNames[itemId]);
-                return true; 
+                vars.productionTotalsSec.Add(itemId, totalProduced);
+                vars.productionTotalsSecAge.Add(itemId, timef);
+                continue;
             }
+            int lastTotalProduced = vars.productionTotalsSec[itemId];
+            double oldTimef = vars.productionTotalsSecAge[itemId];
+            vars.productionTotalsSec[itemId] = totalProduced;
+            vars.productionTotalsSecAge[itemId] = timef;
+
+            if (timef - oldTimef > 1.5) continue;
+
+            try 
+            {
+                if (!vars.itemNextRateGoal.ContainsKey(itemId)) continue;
+                int rateTarget = vars.itemNextRateGoal[itemId][0];
+                int rateProduced = totalProduced - lastTotalProduced; // items / sec
+                if (rateProduced < rateTarget) continue;
+
+                // set next rate goal
+                int idx = vars.itemRateGoals[itemId].IndexOf(rateTarget);
+                string keystring = "r" + idx + "." + itemId;
+                vars.itemNextRateGoal[itemId].RemoveAt(0);
+                if (0 == vars.itemNextRateGoal[itemId].Count) vars.itemNextRateGoal.Remove(itemId); 
+
+                if (settings.ContainsKey(keystring) && settings[keystring])
+                {
+                    print("LiveSplit: [" + current.timei + "] Splitting on rate " + rateTarget + "/s: " + vars.itemNames[itemId]);
+                    return true;
+                }
+            } 
+            catch (Exception) 
+            {
+                // first time getting data
+                continue;
+            } 
         }
     }    
  
     // Power generation
-    //////////////////////////////
-    double powerGen = powerGenTotal / 16666.6666; // MW
+    ////////////////////////////// 
+    double powerGen = powerGenTotal / 16666.6666; // convert to MW
     if (vars.nextPowerGoal != 0 && powerGen >= vars.nextPowerGoal) 
     {
         string keystring = "e" + vars.nextPowerGoal;
@@ -545,6 +566,4 @@ split
         }
         
     }
-
-    vars.hasRunOnce = true;
 } 
