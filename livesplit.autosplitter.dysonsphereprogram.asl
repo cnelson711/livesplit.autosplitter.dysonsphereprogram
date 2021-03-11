@@ -494,7 +494,7 @@ split
             try 
             {
                 if (totalProduced >= totalProducedTarget && 
-                    old.productionTotals.ContainsKey(itemId) && old.productionTotals[itemId] < totalProducedTarget && 
+                    (!old.productionTotals.ContainsKey(itemId) || (old.productionTotals.ContainsKey(itemId) && old.productionTotals[itemId] < totalProducedTarget)) && 
                     settings.ContainsKey("i" + itemId) && settings["i" + itemId] 
                    ) 
                 {
