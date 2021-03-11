@@ -390,7 +390,7 @@ startup
     }
     vars.itemNextRateGoal = new Dictionary<int, List<int>>(vars.itemRateGoals);
     vars.productionTotalsSec = new Dictionary<int, int>(); // per 1 sec
-    vars.productionTotalsSecAge = new Dictionary<int, int>(); // <itemId, timef>
+    vars.productionTotalsSecAge = new Dictionary<int, double>(); // <itemId, timef>
 
     // Power
     /////////////////////////////////////
@@ -419,7 +419,7 @@ start
         vars.itemNextRateGoal = new Dictionary<int, List<int>>(vars.itemRateGoals);
         vars.nextPowerGoal = vars.powerGoals[0];
         vars.productionTotalsSec = new Dictionary<int, int>(); // per 1 sec
-        vars.productionTotalsSecAge = new Dictionary<int, int>(); // <itemId, timef>
+        vars.productionTotalsSecAge = new Dictionary<int, double>(); // <itemId, timef>
         return true;
     }
 }
@@ -515,15 +515,15 @@ split
             if (!vars.productionTotalsSec.ContainsKey(itemId)) 
             {
                 vars.productionTotalsSec.Add(itemId, totalProduced);
-                vars.productionTotalsSecAge.Add(itemId, timef);
+                vars.productionTotalsSecAge.Add(itemId, current.timef);
                 continue;
             }
             int lastTotalProduced = vars.productionTotalsSec[itemId];
             double oldTimef = vars.productionTotalsSecAge[itemId];
             vars.productionTotalsSec[itemId] = totalProduced;
-            vars.productionTotalsSecAge[itemId] = timef;
+            vars.productionTotalsSecAge[itemId] = current.timef;
 
-            if (timef - oldTimef > 1.5) continue;
+            if (current.timef - oldTimef > 1.5) continue;
 
             try 
             {
@@ -561,7 +561,7 @@ split
         vars.nextPowerGoal = vars.powerGoals[vars.powerGoals.IndexOf(vars.nextPowerGoal) + 1];
         if (settings[keystring])
         {
-            print("LiveSplit: [" + current.timei + " secs] Splitting on power goal of  " + keystring.Substring(1) + "MW");
+            print("LiveSplit: [" + current.timei + "] Splitting on power goal of  " + keystring.Substring(1) + "MW");
             return true;
         }
         
