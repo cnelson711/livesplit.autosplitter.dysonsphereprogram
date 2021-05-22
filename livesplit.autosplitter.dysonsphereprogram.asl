@@ -1,4 +1,4 @@
-state("DSPGAME", "0.6.17.5827")
+state("DSPGAME", "0.6.17.6137")
 {
     // DspGame.GameMain fields
     long timei      : "mono.dll", 0x00265A68, 0xA0, 0xE68, 0x28;
@@ -10,7 +10,7 @@ state("DSPGAME", "0.6.17.5827")
     bool ended      : "mono.dll", 0x00265A68, 0xA0, 0xE68, 0x3E;
     
     // DspGame.GameMain.GameData.GameHistoryData fields
-    int currentTech           : "mono.dll", 0x002685D8, 0xEC8, 0x40, 0x4c;
+    int currentTech           : "mono.dll", 0x002685D8, 0xEC8, 0x40, 0x54;
     bool missionAccomplished  : "mono.dll", 0x002685D8, 0xEC8, 0x40, 0xA8;
 
     // DspGame.GameMain.GameData.GameHistoryData.techStates.Values
