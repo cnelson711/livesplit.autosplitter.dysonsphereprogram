@@ -160,7 +160,7 @@
               <VariableType>4 Bytes</VariableType>
               <Address>"mono.dll"+002685d8</Address>
               <Offsets>
-                <Offset>4c</Offset>
+                <Offset>54</Offset>
                 <Offset>40</Offset>
                 <Offset>ec8</Offset>
               </Offsets>
