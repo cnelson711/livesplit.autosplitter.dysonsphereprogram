@@ -16,3 +16,8 @@ https://livesplit.org/
 In LiveSplit, load the splits (.lss) and the layout (.lsl) from the right-click context menu, then go into the layout settings to fix the path to the autosplitter (.asl) and resave the layout.
 
 If you want to have custom rates, it should be fairly easy to open the autosplitter program (.asl) in notepad and adjust the rates manually.
+
+## Discord
+
+It's likely that this autosplitter will break as the game moves towards release.  You can chat with the developer if you are attempting to update it on this discord server:
+https://discord.gg/tmsYSp2hDb
