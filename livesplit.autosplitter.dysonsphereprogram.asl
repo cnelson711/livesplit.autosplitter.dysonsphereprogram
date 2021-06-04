@@ -452,6 +452,8 @@ gameTime
 split
 {   
     return false;
+    // techState changed from array to dictionary; haven't had time to look at Stats production
+
     if (!current.running || current.isMenuDemo || current.timei == 0) return false;
 
     //
