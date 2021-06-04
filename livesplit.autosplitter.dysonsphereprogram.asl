@@ -1,4 +1,4 @@
-state("DSPGAME", "0.7.18.6940")
+state("DSPGAME", "0.7.18.6940") 
 {
     // GameMain fields
     long timei      : "UnityPlayer.dll", 0x0150DAE8, 0x200, 0x148, 0x2a0, 0x50, 0x60, 0x00, 0x30; // frame count (60 fps, ex 808)
@@ -443,20 +443,13 @@ isLoading
 
 gameTime
 {
-    if ((current.timef - old.timef) > 0.1 || (current.timef - old.timef) < -0.1)
-    {
-        print("LiveSplit: [" + current.timei + "] time jump from old time: " + old.timef);
-    }
     TimeSpan ts = TimeSpan.FromSeconds(current.timef);
-    // print(ts.ToString(@"hh\:mm\:ss\.ff"));
+    // print(ts.ToString(@"hh\:mm\:ss\.fff"));
     return ts;
 }
 
 split
 {   
-    return false;
-    // techState changed from array to dictionary; haven't had time to look at Stats production
-
     if (!current.running || current.isMenuDemo || current.timei == 0) return false;
 
     //
