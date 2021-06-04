@@ -1,23 +1,23 @@
-state("DSPGAME", "0.6.17.6137")
+state("DSPGAME", "0.7.18.6940")
 {
-    // DspGame.GameMain fields
-    long timei      : "mono.dll", 0x00265A68, 0xA0, 0xE68, 0x28;
-    double timef    : "mono.dll", 0x00265A68, 0xA0, 0xE68, 0x30;
-    bool running    : "mono.dll", 0x00265A68, 0xA0, 0xE68, 0x38;
-    bool loading    : "mono.dll", 0x00265A68, 0xA0, 0xE68, 0x39;
-    bool paused     : "mono.dll", 0x00265A68, 0xA0, 0xE68, 0x3B;
-    bool isMenuDemo : "mono.dll", 0x00265A68, 0xA0, 0xE68, 0x3F;
-    bool ended      : "mono.dll", 0x00265A68, 0xA0, 0xE68, 0x3E;
+    // GameMain fields
+    long timei      : "UnityPlayer.dll", 0x014DDF20, 0xa0, 0x58, 0xD8, 0xec, 0x00, 0x30; // frame count (60 fps, ex 808)
+    double timef    : "UnityPlayer.dll", 0x014DDF20, 0xa0, 0x58, 0xD8, 0xec, 0x00, 0x38; // secs (13.4666666)
+    bool running    : "UnityPlayer.dll", 0x014DDF20, 0xa0, 0x58, 0xD8, 0xec, 0x00, 0x40;
+    bool loading    : "UnityPlayer.dll", 0x014DDF20, 0xa0, 0x58, 0xD8, 0xec, 0x00, 0x41;
+    bool paused     : "UnityPlayer.dll", 0x014DDF20, 0xa0, 0x58, 0xD8, 0xec, 0x00, 0x43;
+    bool isMenuDemo : "UnityPlayer.dll", 0x014DDF20, 0xa0, 0x58, 0xD8, 0xec, 0x00, 0x47;
+    bool ended      : "UnityPlayer.dll", 0x014DDF20, 0xa0, 0x58, 0xD8, 0xec, 0x00, 0x46;
     
     // DspGame.GameMain.GameData.GameHistoryData fields
-    int currentTech           : "mono.dll", 0x002685D8, 0xEC8, 0x40, 0x54;
-    bool missionAccomplished  : "mono.dll", 0x002685D8, 0xEC8, 0x40, 0xA8;
+    int currentTech           : "mono-2.0-bdwgc.dll", 0x005226e0, 0x18, 0x40, 0x54;
+    bool missionAccomplished  : "mono-2.0-bdwgc.dll", 0x005226e0, 0x18, 0x40, 0xb0;
 
     // DspGame.GameMain.GameData.GameHistoryData.techStates.Values
-    byte6680 techStates       : "mono.dll", 0x002685D8, 0xEC8, 0x40, 0x28, 0x28, 0x48;
-    
+    byte6680 techStates       : "mono-2.0-bdwgc.dll", 0x005226e0, 0x18, 0x40, 0x28, 0x28, 0x48;
+
     /*
-    251 TechStates in array, but only 168 techs/upgrades as of 2021-02-27, followed by bunches of 0s
+    251 TechStates in array, but only 168 techs/upgrades as of 2021-02-27, followed by bunches of 0s3
 
     Can use the following memory signature to search for the TechState array:
     FB00000000000000
@@ -31,7 +31,7 @@ state("DSPGAME", "0.6.17.6137")
     {
         public bool unlocked;      // 4 bytes
         public int curLevel;       // 4 bytes 
-        public int maxLevel;       // 4 bytes
+        public int maxLevel;       // 4 bytes 
                                    // 4 byte pad
         public long hashUploaded;  // 8 bytes
         public long hashNeeded;    // 8 bytes
@@ -426,7 +426,11 @@ start
 
 reset
 {
-    return current.isMenuDemo && !old.isMenuDemo;
+    if (current.isMenuDemo && !old.isMenuDemo)
+    {
+        print("LiveSplit: [" + current.timei + "] reset for going to menu");
+        return true;
+    }
 }
 
 isLoading
@@ -436,11 +440,18 @@ isLoading
 
 gameTime
 {
-    return TimeSpan.FromSeconds(current.timef);
+    if ((current.timef - old.timef) > 0.1 || (current.timef - old.timef) < -0.1)
+    {
+        print("LiveSplit: [" + current.timei + "] time jump from old time: " + old.timef);
+    }
+    TimeSpan ts = TimeSpan.FromSeconds(current.timef);
+    // print(ts.ToString(@"hh\:mm\:ss\.ff"));
+    return ts;
 }
 
 split
 {   
+    return false;
     if (!current.running || current.isMenuDemo || current.timei == 0) return false;
 
     //
