@@ -14,19 +14,22 @@ state("DSPGAME", "0.7.18.6940")
     bool missionAccomplished  : "mono-2.0-bdwgc.dll", 0x005226e0, 0x18, 0x40, 0xb0;
 
     // DspGame.GameMain.GameData.GameHistoryData.techStates.Values
-    byte6680 techStates       : "mono-2.0-bdwgc.dll", 0x005226e0, 0x18, 0x40, 0x28, 0x28, 0x48;
+    byte6680 techStates       : "mono-2.0-bdwgc.dll", 0x005226e0, 0x18, 0x40, 0x28, 0x18, 0x68;
 
     /*
-    251 TechStates in array, but only 168 techs/upgrades as of 2021-02-27, followed by bunches of 0s3
+    Dictionary<int, TechState>, 168 techs/upgrades as of 2021-06
 
     Can use the following memory signature to search for the TechState array:
-    FB00000000000000
-    01000000000000000000000000000000010000000000000001000000000000000000000000000000
-    0?000000000000000000000000000000????000000000000B0040000000000000000000000000000
-    0?000000000000000000000000000000????00000000000008070000000000000000000000000000
+    C500000000000000
+    01000000 FFFFFFFF 01000000 00000000   0?000000 00000000 00000000 00000000 ???????? 00000000 01000000 00000000 00000000 00000000 <-- this is a dud entry
+    E9030000 FFFFFFFF E9030000 00000000   0?000000 00000000 00000000 00000000 ???????? 00000000 B0040000 00000000 00000000 00000000
+    EA030000 FFFFFFFF EA030000 00000000   0?000000 00000000 00000000 00000000 ???????? 00000000 08070000 00000000 00000000 00000000
+    4D040000 FFFFFFFF 4D040000 00000000   0?000000 00000000 00000000 00000000 ???????? 00000000 28230000 00000000 00000000 00000000
+    4E040000 FFFFFFFF 4E040000 00000000   0?000000 00000000 00000000 00000000 ???????? 00000000 A08C0000 00000000 00000000 00000000
+    4F040000 FFFFFFFF 4F040000 00000000   0?000000 00000000 00000000 00000000 ???????? 00000000 40190100 00000000 00000000 00000000
+    ^ int key                              ^ unlocked                          ^ hashUploaded    ^ hashNeeded
 
-    We skip the 8 byte length field and first 40 byte entry with the last offset of 0x48
-
+    KeyValuePair                   // 56 bytes
     struct TechState               // 40 bytes
     {
         public bool unlocked;      // 4 bytes
@@ -466,8 +469,8 @@ split
         settings.ContainsKey("t" + old.currentTech) && 
         settings["t" + old.currentTech] &&                                   // user has setting enabled
         vars.techIds.Contains(old.currentTech) &&
-        old.techStates[vars.techIds.IndexOf(old.currentTech) * 40] == 0 &&   // was locked
-        current.techStates[vars.techIds.IndexOf(old.currentTech) * 40] == 1  // is now unlocked
+        old.techStates[vars.techIds.IndexOf(old.currentTech) * 56] == 0 &&   // was locked
+        current.techStates[vars.techIds.IndexOf(old.currentTech) * 56] == 1  // is now unlocked
         )
     {
         print("LiveSplit: [" + current.timei + "] Splitting on technology: " + vars.techName[old.currentTech]);
@@ -483,9 +486,9 @@ split
     long powerGenTotal = 0;
     for (int factoryIndex = 0; factoryIndex < 1; factoryIndex++) // just do the home planet for now
     {
-        powerGenTotal += new DeepPointer("mono.dll", 0x002685D8, 0xEC8, 0x48, 0x18, 0x18, 0x08 * factoryIndex + 0x20, 0x48).Deref<long>(game); 
+        powerGenTotal += new DeepPointer("mono-2.0-bdwgc.dll", 0x005226e0, 0x18, 0x48, 0x18, 0x18, 0x08 * factoryIndex + 0x20, 0x48).Deref<long>(game); 
 
-        IntPtr productPoolArrayAddr = new DeepPointer("mono.dll", 0x002685D8, 0xEC8, 0x48, 0x18, 0x18, 0x08 * factoryIndex + 0x20, 0x10).Deref<IntPtr>(game);       
+        IntPtr productPoolArrayAddr = new DeepPointer("mono-2.0-bdwgc.dll", 0x005226e0, 0x18, 0x48, 0x18, 0x18, 0x08 * factoryIndex + 0x20, 0x10).Deref<IntPtr>(game);       
         if (productPoolArrayAddr == IntPtr.Zero) continue;
         int numProducts = (int) memory.ReadValue<long>(productPoolArrayAddr + 0x18);
 
