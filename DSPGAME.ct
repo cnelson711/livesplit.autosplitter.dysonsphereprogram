@@ -4,7 +4,7 @@
     <CheatEntry>
       <ID>79</ID>
       <Description>"GameMain"</Description>
-      <LastState Value="000002A9F41509B0" RealAddress="2A932794D40"/>
+      <LastState Value="00000200F108B4B0" RealAddress="2001F8E4D40"/>
       <ShowAsHex>1</ShowAsHex>
       <ShowAsSigned>0</ShowAsSigned>
       <VariableType>8 Bytes</VariableType>
@@ -21,120 +21,78 @@
         <CheatEntry>
           <ID>83</ID>
           <Description>"timei"</Description>
-          <LastState Value="574108" RealAddress="2A9F41509E0"/>
+          <LastState Value="116429" RealAddress="200F108B4E0"/>
           <ShowAsSigned>0</ShowAsSigned>
           <VariableType>8 Bytes</VariableType>
-          <Address>"UnityPlayer.dll"+0150DAE8</Address>
+          <Address>+0</Address>
           <Offsets>
             <Offset>30</Offset>
-            <Offset>0</Offset>
-            <Offset>60</Offset>
-            <Offset>50</Offset>
-            <Offset>2A0</Offset>
-            <Offset>148</Offset>
-            <Offset>200</Offset>
           </Offsets>
         </CheatEntry>
         <CheatEntry>
           <ID>82</ID>
           <Description>"timef"</Description>
-          <LastState Value="9568.46666666667" RealAddress="2A9F41509E8"/>
+          <LastState Value="1940.48333333333" RealAddress="200F108B4E8"/>
           <ShowAsSigned>0</ShowAsSigned>
           <VariableType>Double</VariableType>
-          <Address>"UnityPlayer.dll"+0150DAE8</Address>
+          <Address>+0</Address>
           <Offsets>
             <Offset>38</Offset>
-            <Offset>0</Offset>
-            <Offset>60</Offset>
-            <Offset>50</Offset>
-            <Offset>2A0</Offset>
-            <Offset>148</Offset>
-            <Offset>200</Offset>
           </Offsets>
         </CheatEntry>
         <CheatEntry>
           <ID>86</ID>
           <Description>"running"</Description>
-          <LastState Value="1" RealAddress="2A9F41509F0"/>
+          <LastState Value="1" RealAddress="200F108B4F0"/>
           <ShowAsSigned>0</ShowAsSigned>
           <VariableType>Byte</VariableType>
-          <Address>"UnityPlayer.dll"+0150DAE8</Address>
+          <Address>+0</Address>
           <Offsets>
             <Offset>40</Offset>
-            <Offset>0</Offset>
-            <Offset>60</Offset>
-            <Offset>50</Offset>
-            <Offset>2A0</Offset>
-            <Offset>148</Offset>
-            <Offset>200</Offset>
           </Offsets>
         </CheatEntry>
         <CheatEntry>
           <ID>87</ID>
           <Description>"loading"</Description>
-          <LastState Value="0" RealAddress="2A9F41509F1"/>
+          <LastState Value="0" RealAddress="200F108B4F1"/>
           <ShowAsSigned>0</ShowAsSigned>
           <VariableType>Byte</VariableType>
-          <Address>"UnityPlayer.dll"+0150DAE8</Address>
+          <Address>+0</Address>
           <Offsets>
             <Offset>41</Offset>
-            <Offset>0</Offset>
-            <Offset>60</Offset>
-            <Offset>50</Offset>
-            <Offset>2A0</Offset>
-            <Offset>148</Offset>
-            <Offset>200</Offset>
           </Offsets>
         </CheatEntry>
         <CheatEntry>
           <ID>88</ID>
           <Description>"paused"</Description>
-          <LastState Value="0" RealAddress="2A9F41509F3"/>
+          <LastState Value="0" RealAddress="200F108B4F3"/>
           <ShowAsSigned>0</ShowAsSigned>
           <VariableType>Byte</VariableType>
-          <Address>"UnityPlayer.dll"+0150DAE8</Address>
+          <Address>+0</Address>
           <Offsets>
             <Offset>43</Offset>
-            <Offset>0</Offset>
-            <Offset>60</Offset>
-            <Offset>50</Offset>
-            <Offset>2A0</Offset>
-            <Offset>148</Offset>
-            <Offset>200</Offset>
           </Offsets>
         </CheatEntry>
         <CheatEntry>
           <ID>84</ID>
           <Description>"isMenuDemo"</Description>
-          <LastState Value="1" RealAddress="2A9F41509F7"/>
+          <LastState Value="0" RealAddress="200F108B4F7"/>
           <ShowAsSigned>0</ShowAsSigned>
           <VariableType>Byte</VariableType>
-          <Address>"UnityPlayer.dll"+0150DAE8</Address>
+          <Address>+0</Address>
           <Offsets>
             <Offset>47</Offset>
-            <Offset>0</Offset>
-            <Offset>60</Offset>
-            <Offset>50</Offset>
-            <Offset>2A0</Offset>
-            <Offset>148</Offset>
-            <Offset>200</Offset>
           </Offsets>
         </CheatEntry>
         <CheatEntry>
           <ID>85</ID>
           <Description>"ended"</Description>
-          <LastState Value="0" RealAddress="2A9F41509F6"/>
+          <LastState Value="0" RealAddress="200F108B4F6"/>
           <ShowAsSigned>0</ShowAsSigned>
           <VariableType>Byte</VariableType>
-          <Address>"UnityPlayer.dll"+0150DAE8</Address>
+          <Address>+0</Address>
           <Offsets>
             <Offset>46</Offset>
-            <Offset>0</Offset>
-            <Offset>60</Offset>
-            <Offset>50</Offset>
-            <Offset>2A0</Offset>
-            <Offset>148</Offset>
-            <Offset>200</Offset>
           </Offsets>
         </CheatEntry>
       </CheatEntries>
@@ -142,7 +100,7 @@
     <CheatEntry>
       <ID>63</ID>
       <Description>"GameData"</Description>
-      <LastState Value="0000000000000000" RealAddress="2A94147FE78"/>
+      <LastState Value="00000200C72D8E10" RealAddress="2002E7DFE78"/>
       <ShowAsHex>1</ShowAsHex>
       <ShowAsSigned>0</ShowAsSigned>
       <VariableType>8 Bytes</VariableType>
@@ -155,126 +113,100 @@
         <CheatEntry>
           <ID>67</ID>
           <Description>"GameHistoryData"</Description>
+          <LastState Value="00000200C706D9C0" RealAddress="200C72D8E50"/>
           <ShowAsHex>1</ShowAsHex>
           <ShowAsSigned>0</ShowAsSigned>
           <VariableType>8 Bytes</VariableType>
-          <Address>"mono-2.0-bdwgc.dll"+00491DE8</Address>
+          <Address>+0</Address>
           <Offsets>
             <Offset>40</Offset>
-            <Offset>E78</Offset>
-            <Offset>B8</Offset>
           </Offsets>
           <CheatEntries>
             <CheatEntry>
               <ID>68</ID>
               <Description>"Dictionary&lt;int, TechStates&gt; techStates"</Description>
+              <LastState Value="00000200C73B39C0" RealAddress="200C706D9E8"/>
               <ShowAsHex>1</ShowAsHex>
               <ShowAsSigned>0</ShowAsSigned>
               <VariableType>8 Bytes</VariableType>
-              <Address>"mono-2.0-bdwgc.dll"+00491DE8</Address>
+              <Address>+0</Address>
               <Offsets>
                 <Offset>28</Offset>
-                <Offset>40</Offset>
-                <Offset>E78</Offset>
-                <Offset>B8</Offset>
               </Offsets>
               <CheatEntries>
                 <CheatEntry>
                   <ID>71</ID>
                   <Description>"techStates.values"</Description>
+                  <LastState Value="000002010EC36000" RealAddress="200C73B39D8"/>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>8 Bytes</VariableType>
-                  <Address>"mono-2.0-bdwgc.dll"+00491DE8</Address>
+                  <Address>+0</Address>
                   <Offsets>
                     <Offset>18</Offset>
-                    <Offset>28</Offset>
-                    <Offset>40</Offset>
-                    <Offset>E78</Offset>
-                    <Offset>B8</Offset>
                   </Offsets>
                   <CheatEntries>
                     <CheatEntry>
                       <ID>73</ID>
                       <Description>"techStates.values.count"</Description>
+                      <LastState Value="197" RealAddress="2010EC36018"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>8 Bytes</VariableType>
-                      <Address>"mono-2.0-bdwgc.dll"+00491DE8</Address>
+                      <Address>+0</Address>
                       <Offsets>
                         <Offset>18</Offset>
-                        <Offset>18</Offset>
-                        <Offset>28</Offset>
-                        <Offset>40</Offset>
-                        <Offset>E78</Offset>
-                        <Offset>B8</Offset>
                       </Offsets>
                     </CheatEntry>
                     <CheatEntry>
                       <ID>78</ID>
                       <Description>"techStates.values[0]"</Description>
+                      <LastState Value="01 00 00 00 FF FF FF FF 01 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00" RealAddress="2010EC36020"/>
                       <ShowAsHex>1</ShowAsHex>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Array of byte</VariableType>
                       <ByteLength>56</ByteLength>
-                      <Address>"mono-2.0-bdwgc.dll"+00491DE8</Address>
+                      <Address>+0</Address>
                       <Offsets>
                         <Offset>20</Offset>
-                        <Offset>18</Offset>
-                        <Offset>28</Offset>
-                        <Offset>40</Offset>
-                        <Offset>E78</Offset>
-                        <Offset>B8</Offset>
                       </Offsets>
                     </CheatEntry>
                     <CheatEntry>
-                      <ID>74</ID>
+                      <ID>89</ID>
                       <Description>"techStates.values[1]"</Description>
+                      <LastState Value="E9 03 00 00 FF FF FF FF E9 03 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 B0 04 00 00 00 00 00 00 B0 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00" RealAddress="2010EC36058"/>
                       <ShowAsHex>1</ShowAsHex>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Array of byte</VariableType>
                       <ByteLength>56</ByteLength>
-                      <Address>"mono-2.0-bdwgc.dll"+00491DE8</Address>
+                      <Address>+0</Address>
                       <Offsets>
                         <Offset>58</Offset>
-                        <Offset>18</Offset>
-                        <Offset>28</Offset>
-                        <Offset>40</Offset>
-                        <Offset>E78</Offset>
-                        <Offset>B8</Offset>
                       </Offsets>
                     </CheatEntry>
                     <CheatEntry>
-                      <ID>75</ID>
+                      <ID>91</ID>
                       <Description>"techStates.values[2]"</Description>
+                      <LastState Value="EA 03 00 00 FF FF FF FF EA 03 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 08 07 00 00 00 00 00 00 00 00 00 00 00 00 00 00" RealAddress="2010EC36090"/>
                       <ShowAsHex>1</ShowAsHex>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Array of byte</VariableType>
                       <ByteLength>56</ByteLength>
-                      <Address>"mono-2.0-bdwgc.dll"+00491DE8</Address>
+                      <Address>+0</Address>
                       <Offsets>
                         <Offset>90</Offset>
-                        <Offset>18</Offset>
-                        <Offset>28</Offset>
-                        <Offset>40</Offset>
-                        <Offset>E78</Offset>
-                        <Offset>B8</Offset>
                       </Offsets>
                     </CheatEntry>
                     <CheatEntry>
-                      <ID>76</ID>
+                      <ID>90</ID>
                       <Description>"techStates.values[3]"</Description>
+                      <LastState Value="4D 04 00 00 FF FF FF FF 4D 04 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 28 23 00 00 00 00 00 00 00 00 00 00 00 00 00 00" RealAddress="2010EC360C8"/>
                       <ShowAsHex>1</ShowAsHex>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Array of byte</VariableType>
                       <ByteLength>56</ByteLength>
-                      <Address>"mono-2.0-bdwgc.dll"+00491DE8</Address>
+                      <Address>+0</Address>
                       <Offsets>
                         <Offset>C8</Offset>
-                        <Offset>18</Offset>
-                        <Offset>28</Offset>
-                        <Offset>40</Offset>
-                        <Offset>E78</Offset>
-                        <Offset>B8</Offset>
                       </Offsets>
                     </CheatEntry>
                   </CheatEntries>
@@ -284,29 +216,23 @@
             <CheatEntry>
               <ID>69</ID>
               <Description>"currentTech"</Description>
+              <LastState Value="1002" RealAddress="200C706DA14"/>
+              <ShowAsSigned>0</ShowAsSigned>
               <VariableType>4 Bytes</VariableType>
-              <Address>"mono-2.0-bdwgc.dll"+00491DE8</Address>
+              <Address>+0</Address>
               <Offsets>
                 <Offset>54</Offset>
-                <Offset>40</Offset>
-                <Offset>E78</Offset>
-                <Offset>B8</Offset>
               </Offsets>
             </CheatEntry>
             <CheatEntry>
               <ID>70</ID>
               <Description>"missionAccomplished"</Description>
+              <LastState Value="0" RealAddress="200C706DA70"/>
               <ShowAsSigned>0</ShowAsSigned>
-              <VariableType>Binary</VariableType>
-              <BitStart>0</BitStart>
-              <BitLength>1</BitLength>
-              <ShowAsBinary>0</ShowAsBinary>
-              <Address>"mono-2.0-bdwgc.dll"+00491DE8</Address>
+              <VariableType>Byte</VariableType>
+              <Address>+0</Address>
               <Offsets>
-                <Offset>54</Offset>
-                <Offset>40</Offset>
-                <Offset>E78</Offset>
-                <Offset>B8</Offset>
+                <Offset>B0</Offset>
               </Offsets>
             </CheatEntry>
           </CheatEntries>
@@ -314,241 +240,140 @@
         <CheatEntry>
           <ID>53</ID>
           <Description>"GameStatsData"</Description>
+          <LastState Value="000002010EC10D00" RealAddress="200C72D8E58"/>
           <ShowAsHex>1</ShowAsHex>
           <ShowAsSigned>0</ShowAsSigned>
           <VariableType>8 Bytes</VariableType>
-          <Address>"mono-2.0-bdwgc.dll"+005226e0</Address>
+          <Address>+0</Address>
           <Offsets>
             <Offset>48</Offset>
-            <Offset>18</Offset>
           </Offsets>
           <CheatEntries>
             <CheatEntry>
               <ID>20</ID>
               <Description>"ProductionStatistics"</Description>
+              <LastState Value="000002010EC2D230" RealAddress="2010EC10D18"/>
               <ShowAsHex>1</ShowAsHex>
               <ShowAsSigned>0</ShowAsSigned>
               <VariableType>8 Bytes</VariableType>
-              <Address>"mono-2.0-bdwgc.dll"+005226e0</Address>
+              <Address>+0</Address>
               <Offsets>
-                <Offset>18</Offset>
-                <Offset>48</Offset>
                 <Offset>18</Offset>
               </Offsets>
               <CheatEntries>
                 <CheatEntry>
                   <ID>21</ID>
                   <Description>"factoryStatPool[]"</Description>
+                  <LastState Value="000002010F0EA000" RealAddress="2010EC2D248"/>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>8 Bytes</VariableType>
-                  <Address>"mono-2.0-bdwgc.dll"+005226e0</Address>
+                  <Address>+0</Address>
                   <Offsets>
-                    <Offset>18</Offset>
-                    <Offset>18</Offset>
-                    <Offset>48</Offset>
                     <Offset>18</Offset>
                   </Offsets>
                   <CheatEntries>
                     <CheatEntry>
                       <ID>22</ID>
                       <Description>"factoryStatPool[0] (FactoryProductionStat)"</Description>
+                      <LastState Value="00000200C7449D80" RealAddress="2010F0EA020"/>
                       <ShowAsHex>1</ShowAsHex>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>8 Bytes</VariableType>
-                      <Address>"mono-2.0-bdwgc.dll"+005226e0</Address>
+                      <Address>+0</Address>
                       <Offsets>
                         <Offset>20</Offset>
-                        <Offset>18</Offset>
-                        <Offset>18</Offset>
-                        <Offset>48</Offset>
-                        <Offset>18</Offset>
                       </Offsets>
                       <CheatEntries>
                         <CheatEntry>
                           <ID>23</ID>
                           <Description>"powerGenRegister (1/16666.6666 MW)"</Description>
+                          <LastState Value="5000" RealAddress="200C7449DC8"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>8 Bytes</VariableType>
-                          <Address>"mono-2.0-bdwgc.dll"+005226e0</Address>
+                          <Address>+0</Address>
                           <Offsets>
                             <Offset>48</Offset>
-                            <Offset>20</Offset>
-                            <Offset>18</Offset>
-                            <Offset>18</Offset>
-                            <Offset>48</Offset>
-                            <Offset>18</Offset>
                           </Offsets>
                         </CheatEntry>
                         <CheatEntry>
                           <ID>24</ID>
                           <Description>"productPool[]"</Description>
+                          <LastState Value="000002010EC2FEE0" RealAddress="200C7449D90"/>
                           <ShowAsHex>1</ShowAsHex>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>8 Bytes</VariableType>
-                          <Address>"mono-2.0-bdwgc.dll"+005226e0</Address>
+                          <Address>+0</Address>
                           <Offsets>
                             <Offset>10</Offset>
-                            <Offset>20</Offset>
-                            <Offset>18</Offset>
-                            <Offset>18</Offset>
-                            <Offset>48</Offset>
-                            <Offset>18</Offset>
                           </Offsets>
                           <CheatEntries>
                             <CheatEntry>
                               <ID>31</ID>
                               <Description>"productPool.count"</Description>
+                              <LastState Value="8" RealAddress="2010EC2FEF8"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>8 Bytes</VariableType>
-                              <Address>"mono-2.0-bdwgc.dll"+005226e0</Address>
+                              <Address>+0</Address>
                               <Offsets>
-                                <Offset>18</Offset>
-                                <Offset>10</Offset>
-                                <Offset>20</Offset>
-                                <Offset>18</Offset>
-                                <Offset>18</Offset>
-                                <Offset>48</Offset>
                                 <Offset>18</Offset>
                               </Offsets>
                             </CheatEntry>
                             <CheatEntry>
                               <ID>25</ID>
-                              <Description>"productPool[0] (ProductStat)"</Description>
+                              <Description>"productPool[0] (ProductStat) blank"</Description>
+                              <LastState Value="0" RealAddress="2010EC2FF00"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>8 Bytes</VariableType>
-                              <Address>"mono-2.0-bdwgc.dll"+005226e0</Address>
+                              <Address>+0</Address>
                               <Offsets>
                                 <Offset>20</Offset>
-                                <Offset>10</Offset>
-                                <Offset>20</Offset>
-                                <Offset>18</Offset>
-                                <Offset>18</Offset>
-                                <Offset>48</Offset>
-                                <Offset>18</Offset>
                               </Offsets>
-                              <CheatEntries>
-                                <CheatEntry>
-                                  <ID>29</ID>
-                                  <Description>"productPool[0].itemId"</Description>
-                                  <ShowAsSigned>0</ShowAsSigned>
-                                  <VariableType>8 Bytes</VariableType>
-                                  <Address>"mono-2.0-bdwgc.dll"+005226e0</Address>
-                                  <Offsets>
-                                    <Offset>28</Offset>
-                                    <Offset>20</Offset>
-                                    <Offset>10</Offset>
-                                    <Offset>20</Offset>
-                                    <Offset>18</Offset>
-                                    <Offset>18</Offset>
-                                    <Offset>48</Offset>
-                                    <Offset>18</Offset>
-                                  </Offsets>
-                                </CheatEntry>
-                              </CheatEntries>
                             </CheatEntry>
                             <CheatEntry>
                               <ID>26</ID>
                               <Description>"productPool[1] (ProductStat)"</Description>
+                              <LastState Value="2203684334336" RealAddress="2010EC2FF08"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>8 Bytes</VariableType>
-                              <Address>"mono-2.0-bdwgc.dll"+005226e0</Address>
+                              <Address>+0</Address>
                               <Offsets>
                                 <Offset>28</Offset>
-                                <Offset>10</Offset>
-                                <Offset>20</Offset>
-                                <Offset>18</Offset>
-                                <Offset>18</Offset>
-                                <Offset>48</Offset>
-                                <Offset>18</Offset>
                               </Offsets>
                               <CheatEntries>
                                 <CheatEntry>
-                                  <ID>28</ID>
-                                  <Description>"productPool[1].itemId"</Description>
+                                  <ID>92</ID>
+                                  <Description>"productPool[x].itemId"</Description>
+                                  <LastState Value="1001" RealAddress="20115D26B28"/>
                                   <ShowAsSigned>0</ShowAsSigned>
                                   <VariableType>8 Bytes</VariableType>
-                                  <Address>"mono-2.0-bdwgc.dll"+005226e0</Address>
+                                  <Address>+0</Address>
                                   <Offsets>
                                     <Offset>28</Offset>
-                                    <Offset>28</Offset>
-                                    <Offset>10</Offset>
-                                    <Offset>20</Offset>
-                                    <Offset>18</Offset>
-                                    <Offset>18</Offset>
-                                    <Offset>48</Offset>
-                                    <Offset>18</Offset>
                                   </Offsets>
                                 </CheatEntry>
                                 <CheatEntry>
                                   <ID>32</ID>
-                                  <Description>"productPool[1].total[6]"</Description>
+                                  <Description>"productPool[x].total[6]"</Description>
+                                  <LastState Value="50" RealAddress="2010EB621B8"/>
                                   <ShowAsSigned>0</ShowAsSigned>
                                   <VariableType>4 Bytes</VariableType>
-                                  <Address>"mono-2.0-bdwgc.dll"+005226e0</Address>
+                                  <Address>+0</Address>
                                   <Offsets>
                                     <Offset>38</Offset>
                                     <Offset>20</Offset>
-                                    <Offset>28</Offset>
-                                    <Offset>10</Offset>
-                                    <Offset>20</Offset>
-                                    <Offset>18</Offset>
-                                    <Offset>18</Offset>
-                                    <Offset>48</Offset>
-                                    <Offset>18</Offset>
                                   </Offsets>
                                 </CheatEntry>
                                 <CheatEntry>
                                   <ID>33</ID>
-                                  <Description>"productPool[1].total[13]"</Description>
+                                  <Description>"productPool[x].total[13]"</Description>
+                                  <LastState Value="0" RealAddress="2010EB621D4"/>
                                   <ShowAsSigned>0</ShowAsSigned>
                                   <VariableType>4 Bytes</VariableType>
-                                  <Address>"mono-2.0-bdwgc.dll"+005226e0</Address>
+                                  <Address>+0</Address>
                                   <Offsets>
                                     <Offset>54</Offset>
                                     <Offset>20</Offset>
-                                    <Offset>28</Offset>
-                                    <Offset>10</Offset>
-                                    <Offset>20</Offset>
-                                    <Offset>18</Offset>
-                                    <Offset>18</Offset>
-                                    <Offset>48</Offset>
-                                    <Offset>18</Offset>
-                                  </Offsets>
-                                </CheatEntry>
-                              </CheatEntries>
-                            </CheatEntry>
-                            <CheatEntry>
-                              <ID>27</ID>
-                              <Description>"productPool[2] (ProductStat)"</Description>
-                              <ShowAsSigned>0</ShowAsSigned>
-                              <VariableType>8 Bytes</VariableType>
-                              <Address>"mono-2.0-bdwgc.dll"+005226e0</Address>
-                              <Offsets>
-                                <Offset>30</Offset>
-                                <Offset>10</Offset>
-                                <Offset>20</Offset>
-                                <Offset>18</Offset>
-                                <Offset>18</Offset>
-                                <Offset>48</Offset>
-                                <Offset>18</Offset>
-                              </Offsets>
-                              <CheatEntries>
-                                <CheatEntry>
-                                  <ID>30</ID>
-                                  <Description>"productPool[2].itemId"</Description>
-                                  <ShowAsSigned>0</ShowAsSigned>
-                                  <VariableType>8 Bytes</VariableType>
-                                  <Address>"mono-2.0-bdwgc.dll"+005226e0</Address>
-                                  <Offsets>
-                                    <Offset>28</Offset>
-                                    <Offset>30</Offset>
-                                    <Offset>10</Offset>
-                                    <Offset>20</Offset>
-                                    <Offset>18</Offset>
-                                    <Offset>18</Offset>
-                                    <Offset>48</Offset>
-                                    <Offset>18</Offset>
                                   </Offsets>
                                 </CheatEntry>
                               </CheatEntries>
@@ -564,40 +389,6 @@
           </CheatEntries>
         </CheatEntry>
       </CheatEntries>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>81</ID>
-      <Description>"timef"</Description>
-      <LastState Value="9568.46666666667" RealAddress="2A9F41509E8"/>
-      <ShowAsSigned>0</ShowAsSigned>
-      <VariableType>Double</VariableType>
-      <Address>"UnityPlayer.dll"+0150DAE8</Address>
-      <Offsets>
-        <Offset>38</Offset>
-        <Offset>0</Offset>
-        <Offset>60</Offset>
-        <Offset>50</Offset>
-        <Offset>2A0</Offset>
-        <Offset>148</Offset>
-        <Offset>200</Offset>
-      </Offsets>
-    </CheatEntry>
-    <CheatEntry>
-      <ID>80</ID>
-      <Description>"timef"</Description>
-      <LastState Value="9568.46666666667" RealAddress="2A9F41509E8"/>
-      <ShowAsSigned>0</ShowAsSigned>
-      <VariableType>Double</VariableType>
-      <Address>"UnityPlayer.dll"+0150DAB8</Address>
-      <Offsets>
-        <Offset>38</Offset>
-        <Offset>0</Offset>
-        <Offset>60</Offset>
-        <Offset>50</Offset>
-        <Offset>2A0</Offset>
-        <Offset>148</Offset>
-        <Offset>688</Offset>
-      </Offsets>
     </CheatEntry>
   </CheatEntries>
   <UserdefinedSymbols/>
