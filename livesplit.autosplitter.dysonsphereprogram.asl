@@ -10,14 +10,14 @@ state("DSPGAME", "0.7.18.7189")
     bool ended      : "UnityPlayer.dll", 0x01502050, 0x108, 0xB8, 0x28, 0xA0, 0x100, 0x08, 0x46;
     
     // GameData.GameHistoryData fields
-    int currentTech           : "mono-2.0-bdwgc.dll", 0x005226e0, 0x18, 0x40, 0x54;
-    bool missionAccomplished  : "mono-2.0-bdwgc.dll", 0x005226e0, 0x18, 0x40, 0xb0;
+    int currentTech           : "mono-2.0-bdwgc.dll", 0x00491DE8, 0xB8, 0xE78, 0x40, 0x54;
+    bool missionAccomplished  : "mono-2.0-bdwgc.dll", 0x00491DE8, 0xB8, 0xE78, 0x40, 0xb0;
 
     // GameData.GameHistoryData.techStates.Values
-    byte6680 techStates       : "mono-2.0-bdwgc.dll", 0x005226e0, 0x18, 0x40, 0x28, 0x18, 0x68;
+    byte9408 techStates       : "mono-2.0-bdwgc.dll", 0x00491DE8, 0xB8, 0xE78, 0x40, 0x28, 0x18, 0x58;
 
     /*
-    Dictionary<int, TechState>, 168 techs/upgrades as of 2021-06
+    Dictionary<int, TechState>, 168 techs/upgrades as of 2021-07
 
     Can use the following memory signature to search for the TechState array:
     C500000000000000
@@ -462,8 +462,8 @@ split
         settings.ContainsKey("t" + old.currentTech) && 
         settings["t" + old.currentTech] &&                                   // user has setting enabled
         vars.techIds.Contains(old.currentTech) &&
-        old.techStates[vars.techIds.IndexOf(old.currentTech) * 56] == 0 &&   // was locked
-        current.techStates[vars.techIds.IndexOf(old.currentTech) * 56] == 1  // is now unlocked
+        old.techStates[vars.techIds.IndexOf(old.currentTech) * 56 + 16] == 0 &&   // was locked
+        current.techStates[vars.techIds.IndexOf(old.currentTech) * 56 + 16] == 1  // is now unlocked
         )
     {
         print("LiveSplit: [" + current.timei + "] Splitting on technology: " + vars.techName[old.currentTech]);
@@ -479,9 +479,22 @@ split
     long powerGenTotal = 0;
     for (int factoryIndex = 0; factoryIndex < 1; factoryIndex++) // just do the home planet for now
     {
-        powerGenTotal += new DeepPointer("mono-2.0-bdwgc.dll", 0x005226e0, 0x18, 0x48, 0x18, 0x18, 0x08 * factoryIndex + 0x20, 0x48).Deref<long>(game); 
+        powerGenTotal += new DeepPointer("mono-2.0-bdwgc.dll", 0x00491DE8, 0xB8, 0xE78, // GameData
+                                          0x48,                                         // GameData.GameStatData
+                                          0x18,                                         // GameData.GameStatData.ProductionStatistics
+                                          0x18,                                         // GameData.GameStatData.ProductionStatistics.factoryStatPool[]
+                                          0x08 * factoryIndex + 0x20,                   // GameData.GameStatData.ProductionStatistics.factoryStatPool[0]
+                                          0x48                                          // GameData.GameStatData.ProductionStatistics.factoryStatPool[0].powerGenRegister
+                                        ).Deref<long>(game);     
 
-        IntPtr productPoolArrayAddr = new DeepPointer("mono-2.0-bdwgc.dll", 0x005226e0, 0x18, 0x48, 0x18, 0x18, 0x08 * factoryIndex + 0x20, 0x10).Deref<IntPtr>(game);       
+        IntPtr productPoolArrayAddr = new DeepPointer("mono-2.0-bdwgc.dll", 0x00491DE8, 0xB8, 0xE78, // GameData
+                                                       0x48,                       // GameData.GameStatData
+                                                       0x18,                       // GameData.GameStatData.ProductionStatistics
+                                                       0x18,                       // GameData.GameStatData.ProductionStatistics.factoryStatPool[]
+                                                       0x08 * factoryIndex + 0x20, // GameData.GameStatData.ProductionStatistics.factoryStatPool[0]
+                                                       0x10                        // GameData.GameStatData.ProductionStatistics.factoryStatPool[0].productPool[]
+                                                     ).Deref<IntPtr>(game);    
+
         if (productPoolArrayAddr == IntPtr.Zero) continue;
         int numProducts = (int) memory.ReadValue<long>(productPoolArrayAddr + 0x18);
 
